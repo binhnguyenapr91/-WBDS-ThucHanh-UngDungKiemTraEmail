@@ -13,12 +13,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Controller
-@RequestMapping("/")
 public class EmailController {
     private static Pattern pattern;
     private Matcher matcher;
 
-    private static final String EMAIL_REGEX = "^[A-Za-z0-9]+[A-Za-z0-9]*@[A-Za-z0-9]+(\\\\.[A-Za-z0-9]+)$";
+    private static final String EMAIL_REGEX = "^[A-Za-z0-9]+[A-Za-z0-9]*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)$";
 
     public EmailController() {
         pattern = Pattern.compile(EMAIL_REGEX);
@@ -37,13 +36,13 @@ public class EmailController {
             model.addAttribute("message","Email is invalid!");
             return "index";
         }else {
-            model.addAttribute("message",email);
+            model.addAttribute("email",email);
             return "success";
         }
     }
 
-    private boolean validate(String regex) {
-        matcher = pattern.matcher(regex);
+    private boolean validate(String email) {
+        matcher = pattern.matcher(email);
         return  matcher.matches();
     }
 }
